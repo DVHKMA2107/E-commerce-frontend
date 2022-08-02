@@ -1,0 +1,71 @@
+.banner {
+  background-image: url("../../images/cover.jfif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vmin;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+
+  p {
+    font: 300 1.2vmax "Lucida Sans";
+  }
+
+  h1 {
+    font: 600 2.2vmax "Roboto";
+    margin: 5vmax;
+  }
+
+  a {
+    button {
+      padding: 0.8vmax;
+      width: 9vmax;
+      border: 1px solid #fff;
+      font: 500 1vmax "Roboto";
+      cursor: pointer;
+      margin-bottom: 5vmax;
+      transition: all 0.5s;
+    }
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0);
+      color: white;
+    }
+  }
+
+  &::after {
+    content: "";
+    width: 100vw;
+    height: 100vmin;
+    background-color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip-path: polygon(100% 68%, 0 100%, 100% 100%);
+    max-width: 100%;
+  }
+}
+
+.home-heading {
+  font-size: 1.4vmax;
+  font-family: "Roboto";
+  text-align: center;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.5);
+  width: 20vmax;
+  padding: 1vmax;
+  margin: 5vmax auto;
+  color: rbg(0, 0, 0, 0.7);
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2vmax auto;
+  width: 80vw;
+}
