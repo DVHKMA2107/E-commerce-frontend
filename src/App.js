@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import WebFont from "webfontloader"
 import Header from "./component/layout/Header/Header"
 import Footer from "./component/layout/Footer/Footer"
+import ProductDetail from "./component/Product/ProductDetail"
 import Home from "./component/Home/Home"
-import "./App.css"
+import "./App.scss"
 
 function App() {
   useEffect(() => {
@@ -19,6 +20,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
       <Footer />
     </Router>
