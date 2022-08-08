@@ -20,7 +20,7 @@ const Home = () => {
       alert.error(error.message)
       dispatch(clearError())
     }
-    dispatch(fetchAllProduct())
+    dispatch(fetchAllProduct({}))
   }, [dispatch, error, alert])
   return loading ? (
     <Loading />

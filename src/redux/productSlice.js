@@ -2,13 +2,15 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 const productSlice = createSlice({
-  name: "prodcut",
+  name: "product",
   initialState: {
     products: [],
     productCount: 0,
+    filteredProductsCount: 0,
     loading: false,
     error: null,
     productDetail: {},
+    resultPerPage: 0,
   },
   reducers: {
     clearError: (state, action) => {
@@ -24,6 +26,8 @@ const productSlice = createSlice({
         state.loading = false
         state.products = action.payload.products
         state.productCount = action.payload.productCount
+        state.resultPerPage = action.payload.resultPerPage
+        state.filteredProductsCount = action.payload.filteredProductsCount
       })
       .addCase(fetchAllProduct.rejected, (state, action) => {
         state.loading = false
@@ -43,11 +47,21 @@ const productSlice = createSlice({
   },
 })
 
+// { keyword, currentPage = 1, price = [0, 25000], category, rating = 0 }
+
 export const fetchAllProduct = createAsyncThunk(
   "product/fetchAllProduct",
-  async (arg, thunkApi) => {
+  async (
+    { keyword = "", currentPage = 1, price = [0, 25000], category, rating = 0 },
+    thunkApi
+  ) => {
+    let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${rating}`
     try {
-      const { data } = await axios.get("/api/v1/products?page=2")
+      if (category) {
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${rating}&category=${category}`
+      }
+
+      const { data } = await axios.get(link)
       return data
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data)

@@ -9,6 +9,7 @@ import Loading from "../layout/Loading/Loading"
 
 import ReviewCard from "./ReviewCard"
 import "./ProductDetail.scss"
+import MetaData from "../layout/MetaData"
 
 const ProductDetail = () => {
   const dispatch = useDispatch()
@@ -42,6 +43,7 @@ const ProductDetail = () => {
         <Loading />
       ) : (
         <Fragment>
+          <MetaData title={`${productDetail.name} -- ECOMMERCE`} />
           <div className="product-detail">
             <div>
               <Carousel>
