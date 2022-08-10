@@ -28,6 +28,7 @@ const options = {
   nav4justifyContent: "flex-start",
   link1ColorHover: "#eb4034",
   link1Margin: "1vmax",
+  profileIconUrl: "/login",
   profileIcon: true,
   searchIcon: true,
   cartIcon: true,

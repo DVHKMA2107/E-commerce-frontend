@@ -10,6 +10,7 @@ import Search from "./component/Product/Search"
 import Products from "./component/Product/Products"
 
 import "./App.scss"
+import LoginSignup from "./component/User/LoginSignup"
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/login" element={<LoginSignup />} />
       </Routes>
       <Footer />
     </Router>
