@@ -15,20 +15,18 @@ const LoginSignup = () => {
   const [loginEmail, setLoginEmail] = useState("")
   const [user, setUser] = useState({
     name: "",
-    mail: "",
+    email: "",
     password: "",
   })
-
-  const [avatar, setAvatar] = useState("/Profile.png")
-  const [avatarPreview, setAvatarPreview] = useState("/Profile.png")
+  const [avatar, setAvatar] = useState(Profile)
+  const [avatarPreview, setAvatarPreview] = useState(Profile)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const alert = useAlert()
 
   const { loading, error, isAuthenticated } = useSelector((state) => state.user)
-
-  const { name, mail, password } = user
+  const { name, email, password } = user
 
   const switcherTab = useRef(null)
   const loginTab = useRef(null)
@@ -74,7 +72,7 @@ const LoginSignup = () => {
     const myForm = new FormData()
 
     myForm.set("name", name)
-    myForm.set("mail", mail)
+    myForm.set("email", email)
     myForm.set("password", password)
     myForm.set("avatar", avatar)
     dispatch(userRegister(myForm))
@@ -163,8 +161,8 @@ const LoginSignup = () => {
                     type="email"
                     placeholder="Email"
                     required
-                    value={mail}
-                    name="mail"
+                    value={email}
+                    name="email"
                     onChange={registerDataChange}
                   />
                 </div>
