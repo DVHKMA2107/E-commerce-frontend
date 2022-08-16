@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { MailOutline, Face } from "@mui/icons-material"
-// import FaceIcon from "@mui/icons-material/Face"
 import Profile from "../../images/Profile.png"
 import Loading from "../layout/Loading/Loading"
 import MetaData from "../layout/MetaData"
@@ -67,7 +66,7 @@ const UpdateProfile = () => {
       dispatch(loadUser())
 
       navigate("/account")
-      dispatch(profileSlice.actions.updateProfileReset())
+      dispatch(profileSlice.actions.updateReset())
     }
   }, [dispatch, error, alert, navigate, isUpdated, user])
   return (

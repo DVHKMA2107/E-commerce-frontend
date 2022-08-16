@@ -20,7 +20,7 @@ const Profile = () => {
         <Loading />
       ) : (
         <Fragment>
-          <MetaData title={`${user.name} Profile`} />
+          <MetaData title={`${user.name}'s Profile`} />
           <div className="profile-container">
             <div>
               <h1>My Profile</h1>

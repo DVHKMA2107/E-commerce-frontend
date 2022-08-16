@@ -13,13 +13,13 @@ import { useAlert } from "react-alert"
 const LoginSignup = () => {
   const [loginPassword, setLoginPassword] = useState("")
   const [loginEmail, setLoginEmail] = useState("")
+  const [avatar, setAvatar] = useState(Profile)
+  const [avatarPreview, setAvatarPreview] = useState(Profile)
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
   })
-  const [avatar, setAvatar] = useState(Profile)
-  const [avatarPreview, setAvatarPreview] = useState(Profile)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -134,7 +134,7 @@ const LoginSignup = () => {
                     onChange={(e) => setLoginPassword(e.target.value)}
                   />
                 </div>
-                <Link to="/forgot/password">Forgot Password?</Link>
+                <Link to="/password/forgot">Forgot Password?</Link>
                 <input type="submit" value="Login" className="login-button" />
               </form>
 

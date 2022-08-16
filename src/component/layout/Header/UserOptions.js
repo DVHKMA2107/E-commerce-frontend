@@ -4,13 +4,20 @@ import SpeedDialAction from "@mui/material/SpeedDialAction"
 import Profile from "../../../images/Profile.png"
 import { useNavigate } from "react-router-dom"
 import { useAlert } from "react-alert"
-import { Dashboard, Person, ExitToApp, ListAlt } from "@mui/icons-material"
+import {
+  Dashboard,
+  Person,
+  ExitToApp,
+  ListAlt,
+  ShoppingCart,
+} from "@mui/icons-material"
 import { Backdrop } from "@mui/material"
 import { logout } from "../../../redux/userSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import "./UserOptions.scss"
 
 const UserOptions = ({ user }) => {
+  const { cartItems } = useSelector((state) => state.cart)
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const alert = useAlert()
@@ -19,6 +26,15 @@ const UserOptions = ({ user }) => {
   const options = [
     { icon: <ListAlt />, name: "Orders", func: orders },
     { icon: <Person />, name: "Profile", func: account },
+    {
+      icon: (
+        <ShoppingCart
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart(${cartItems.length})`,
+      func: cart,
+    },
     { icon: <ExitToApp />, name: "Logout", func: logoutUser },
   ]
 
@@ -41,19 +57,23 @@ const UserOptions = ({ user }) => {
     navigate("/account")
   }
 
+  function cart() {
+    navigate("/cart")
+  }
+
   function logoutUser() {
     dispatch(logout())
     alert.success("Logout successfully")
   }
   return (
     <Fragment>
-      <Backdrop open={open} stype={{ zIndex: "10" }} />
+      <Backdrop open={open} stype={{ zIndex: "99" }} />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
-        stype={{ zIndex: "11" }}
+        stype={{ zIndex: "100" }}
         className="speed-dial"
         direction="down"
         icon={
@@ -70,6 +90,7 @@ const UserOptions = ({ user }) => {
             icon={item.icon}
             tooltipTitle={item.name}
             onClick={item.func}
+            tooltipOpen={window.innerWidth < 600 ? true : false}
           />
         ))}
       </SpeedDial>
