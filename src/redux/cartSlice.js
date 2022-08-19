@@ -24,6 +24,10 @@ const cartSlice = createSlice({
       const id = action.payload
       state.cartItems = state.cartItems.filter((item) => item.product !== id)
     },
+
+    saveShippingInfo: (state, action) => {
+      state.shippingInfo = action.payload
+    },
   },
 })
 
@@ -56,6 +60,18 @@ export const removeItemsFromCart = createAsyncThunk(
     localStorage.setItem(
       "cartItems",
       JSON.stringify(thunkApi.getState().cart.cartItems)
+    )
+  }
+)
+
+export const saveShippingInfo = createAsyncThunk(
+  "cart/saveShippingInfo",
+  (shippingInfo, thunkApi) => {
+    thunkApi.dispatch(cartSlice.actions.saveShippingInfo(shippingInfo))
+
+    localStorage.setItem(
+      "shippingInfo",
+      JSON.stringify(thunkApi.getState().cart.shippingInfo)
     )
   }
 )

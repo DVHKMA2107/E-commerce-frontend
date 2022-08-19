@@ -3,12 +3,16 @@ import productSlice from "./productSlice"
 import userSlice from "./userSlice"
 import profileSlice from "./profileSlice"
 import cartSlice from "./cartSlice"
+import orderSlice from "./orderSlice"
 
 const preloadState = {
   cart: {
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
+    shippingInfo: localStorage.getItem("shippingInfo")
+      ? JSON.parse(localStorage.getItem("shippingInfo"))
+      : {},
   },
 }
 
@@ -18,6 +22,7 @@ export const store = configureStore({
     user: userSlice.reducer,
     profile: profileSlice.reducer,
     cart: cartSlice.reducer,
+    order: orderSlice.reducer,
   },
   preloadedState: preloadState,
 })

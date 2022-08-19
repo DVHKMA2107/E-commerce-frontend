@@ -3,7 +3,7 @@ import FaceIcon from "@mui/icons-material/Face"
 import React, { Fragment, useState, useEffect, useRef } from "react"
 import Profile from "../../images/Profile.png"
 import Loading from "../layout/Loading/Loading"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import "./LoginSignup.scss"
 
 import { useSelector, useDispatch } from "react-redux"
@@ -20,6 +20,8 @@ const LoginSignup = () => {
     email: "",
     password: "",
   })
+
+  const [searchParams] = useSearchParams()
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -50,6 +52,10 @@ const LoginSignup = () => {
     }
   }
 
+  const redirect = searchParams.get("redirect")
+    ? searchParams.get("redirect")
+    : "account"
+
   useEffect(() => {
     if (error) {
       alert.error(error.message)
@@ -57,9 +63,9 @@ const LoginSignup = () => {
     }
 
     if (isAuthenticated) {
-      navigate("/account")
+      navigate(`/${redirect}`)
     }
-  }, [dispatch, error, alert, navigate, isAuthenticated])
+  }, [dispatch, error, alert, navigate, isAuthenticated, redirect])
 
   const loginSubmit = (e) => {
     e.preventDefault()
