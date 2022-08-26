@@ -22,6 +22,12 @@ import Shipping from "./component/Cart/Shipping"
 import ConfirmOrder from "./component/Cart/ConfirmOrder"
 import Payment from "./component/Cart/Payment"
 import OrderSuccess from "./component/Cart/OrderSuccess"
+import MyOrders from "./component/Order/MyOrders"
+import OrderDetail from "./component/Order/OrderDetail"
+import DashBoard from "./component/Admin/DashBoard"
+import ProductList from "./component/Admin/ProductList"
+import NewProduct from "./component/Admin/NewProduct"
+import UpdateProduct from "./component/Admin/UpdateProduct"
 
 import "./App.scss"
 import LoginSignup from "./component/User/LoginSignup"
@@ -79,6 +85,12 @@ function App() {
             }
           />
           <Route path="/success" element={<OrderSuccess />} />
+          <Route path="/orders" element={<MyOrders />} />
+          <Route path="/order/:id" element={<OrderDetail />} />
+          <Route path="/admin/dashboard" element={<DashBoard />} />
+          <Route path="/admin/products" element={<ProductList />} />
+          <Route path="/admin/product" element={<NewProduct />} />
+          <Route path="/admin/product/:id" element={<UpdateProduct />} />
         </Route>
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />

@@ -50,7 +50,7 @@ const UserOptions = ({ user }) => {
   }
 
   function dashboard() {
-    navigate("/dashboard")
+    navigate("/admin/dashboard")
   }
 
   function account() {
@@ -67,7 +67,7 @@ const UserOptions = ({ user }) => {
   }
   return (
     <Fragment>
-      <Backdrop open={open} stype={{ zIndex: "99" }} />
+      <Backdrop open={open} style={{ zIndex: "99" }} />
       <SpeedDial
         ariaLabel="SpeedDial basic example"
         onClose={() => setOpen(false)}

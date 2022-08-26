@@ -11,8 +11,18 @@ const productSlice = createSlice({
     error: null,
     productDetail: {},
     resultPerPage: 0,
+    newProduct: {},
   },
   reducers: {
+    newProductReset: (state, action) => {
+      state.success = false
+    },
+    deleteProductReset: (state, action) => {
+      state.isDeleted = false
+    },
+    updateProductReset: (state, action) => {
+      state.isUpdated = false
+    },
     clearError: (state, action) => {
       state.error = null
     },
@@ -41,6 +51,51 @@ const productSlice = createSlice({
         state.productDetail = action.payload
       })
       .addCase(getProductDetail.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(getProductList.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(getProductList.fulfilled, (state, action) => {
+        state.loading = false
+        state.products = action.payload
+      })
+      .addCase(getProductList.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(createNewProduct.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(createNewProduct.fulfilled, (state, action) => {
+        state.loading = false
+        state.success = action.payload.success
+        state.newProduct = action.payload.product
+      })
+      .addCase(createNewProduct.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(deleteProduct.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loading = false
+        state.isDeleted = action.payload
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(updateProduct.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.loading = false
+        state.isUpdated = action.payload
+      })
+      .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
@@ -75,6 +130,67 @@ export const getProductDetail = createAsyncThunk(
     try {
       const { data } = await axios.get(`/api/v1/product/${id}`)
       return data.product
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const getProductList = createAsyncThunk(
+  "product/getProductList",
+  async (args, thunkApi) => {
+    try {
+      const { data } = await axios.get("/api/v1/admin/products")
+      return data.products
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const createNewProduct = createAsyncThunk(
+  "product/createNewProduct",
+  async (productData, thunkApi) => {
+    try {
+      const config = { headers: { "Content-Type": "application/json" } }
+      const { data } = await axios.post(
+        "/api/v1/admin/product/new",
+        productData,
+        config
+      )
+
+      return data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async (id, thunkApi) => {
+    try {
+      const { data } = await axios.delete(`/api/v1/admin/product/${id}`)
+
+      return data.success
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const updateProduct = createAsyncThunk(
+  "product/updateProduct",
+  async ({ id, updateData }, thunkApi) => {
+    try {
+      const config = { headers: { "Content-Type": "application/json" } }
+      const { data } = await axios.put(
+        `/api/v1/admin/product/${id}`,
+        updateData,
+        config
+      )
+
+      return data.success
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data)
     }

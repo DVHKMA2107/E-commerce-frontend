@@ -4,6 +4,7 @@ import userSlice from "./userSlice"
 import profileSlice from "./profileSlice"
 import cartSlice from "./cartSlice"
 import orderSlice from "./orderSlice"
+import reviewSlice from "./reviewSlice"
 
 const preloadState = {
   cart: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     profile: profileSlice.reducer,
     cart: cartSlice.reducer,
     order: orderSlice.reducer,
+    review: reviewSlice.reducer,
   },
   preloadedState: preloadState,
 })

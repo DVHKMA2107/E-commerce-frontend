@@ -46,7 +46,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.205);
     border-top: 1px solid rgba(0, 0, 0, 0.205);
 
-    & > span {
+    .detail-block2__span {
       font: 200 0.8vmax cursive;
       color: rgba(0, 0, 0, 0.699);
     }
@@ -250,4 +250,17 @@
   font: 400 1.3vmax "Gill Sans";
   text-align: center;
   color: rgba(0, 0, 0, 0.548);
+}
+
+.submit-dialog {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog__textarea {
+  border: 1px solid rgba(0, 0, 0, 0.082);
+  margin: 1vmax 0;
+  outline: none;
+  padding: 1rem;
+  font: 300 1rem "Roboto";
 }

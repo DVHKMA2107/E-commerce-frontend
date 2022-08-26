@@ -1,3 +1,5 @@
+@import "../../responsive.scss";
+
 .review-card {
   flex: none;
 
@@ -19,8 +21,18 @@
     font: 600 0.9vmax "Roboto";
   }
 
-  span {
-    color: rgba(0, 0, 0, 0.445);
+  .review-card__span {
+    color: rgba(0, 0, 0, 0.699);
     font: 300 0.8vmax cursive;
+  }
+
+  @include tablet {
+    p {
+      font: 600 3vw "Roboto";
+    }
+
+    .review-card__span {
+      font: 300 5vw cursive;
+    }
   }
 }

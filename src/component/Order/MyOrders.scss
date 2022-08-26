@@ -1,0 +1,86 @@
+@import "../../responsive.scss";
+
+.orders-page {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 7vmax;
+  background-color: rgb(235, 235, 235);
+  box-sizing: border-box;
+
+  #orders-page__heading {
+    text-align: center;
+    font: 400 1.2vmax "Roboto";
+    padding: 0.5vmax;
+    color: #fff;
+    box-sizing: border-box;
+    background-color: rgb(44, 44, 44);
+    transition: all 0.5s;
+  }
+
+  .orders-table {
+    background-color: #fff;
+
+    & div {
+      font: 300 1vmax "Roboto";
+      border: none;
+    }
+
+    & div + div {
+      color: rgba(0, 0, 0, 0.678);
+    }
+
+    & a {
+      color: rgba(0, 0, 0, 0.527);
+      transition: all 0.5s;
+
+      &:hover {
+        color: tomato;
+      }
+    }
+  }
+
+  @include tablet {
+    padding: 0;
+    height: 93vh;
+
+    #orders-page__heading {
+      font: 400 2.2vmax "Roboto";
+      padding: 4vw;
+    }
+
+    .orders-table div {
+      font: 300 4vw "Roboto";
+    }
+  }
+}
+
+.MuiDataGrid-columnHeader {
+  background-color: tomato;
+  padding: 1vmax !important;
+
+  & div {
+    color: #fff;
+    font: 500 1.1vmax "Roboto" !important;
+  }
+
+  @include tablet {
+    padding: 20px !important;
+
+    & div {
+      font: 500 5vw "Roboto" !important;
+    }
+  }
+}
+
+.MuiDataGrid-iconSeparator {
+  display: none !important;
+}
+
+.MuiDataGrid-columnHeaders {
+  border-radius: 0px !important;
+}

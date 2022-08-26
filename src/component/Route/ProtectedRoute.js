@@ -3,10 +3,19 @@ import { useSelector } from "react-redux"
 import { Navigate, Outlet } from "react-router-dom"
 
 const ProtectedRoute = () => {
-  const { isAuthenticated } = useSelector((state) => state.user)
+  const { isAuthenticated, loading } = useSelector((state) => state.user)
   return (
     <Fragment>
-      {isAuthenticated ? <Outlet /> : <Navigate to="/login" />}
+      {!loading && (
+        <Fragment>
+          {isAuthenticated === false ? (
+            <Navigate to="/login" />
+          ) : isAuthenticated === true ? (
+            <Outlet />
+          ) : null}
+          {/* {isAuthenticated === false ? <Navigate to="/login" /> : <Outlet />} */}
+        </Fragment>
+      )}
     </Fragment>
   )
 }
