@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from "react"
-import SideBar from "./SideBar.js"
-import "./DashBoard.scss"
+import { useSelector, useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 import { Typography } from "@mui/material"
-import { Link, Navigate } from "react-router-dom"
+import { Line, Doughnut } from "react-chartjs-2"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,9 +14,15 @@ import {
   Tooltip,
   Legend,
 } from "chart.js"
-import { Line, Doughnut } from "react-chartjs-2"
-import { useSelector, useDispatch } from "react-redux"
+
 import { getProductList } from "../../redux/productSlice.js"
+import { getAllOrders } from "../../redux/orderSlice.js"
+import { getUserList } from "../../redux/adminSlice.js"
+
+import Loading from "../layout/Loading/Loading.js"
+import MetaData from "../layout/MetaData"
+import SideBar from "./SideBar.js"
+import "./DashBoard.scss"
 
 ChartJS.register(
   CategoryScale,
@@ -43,8 +49,11 @@ export const options = {
 }
 
 const DashBoard = () => {
-  const { user } = useSelector((state) => state.user)
-  const { products } = useSelector((state) => state.product)
+  const { products, loading: productLoading } = useSelector(
+    (state) => state.product
+  )
+  const { orders, loading: orderLoading } = useSelector((state) => state.order)
+  const { users, loading: userLoading } = useSelector((state) => state.admin)
 
   const dispatch = useDispatch()
 
@@ -56,11 +65,13 @@ const DashBoard = () => {
       }
     })
 
-  console.log(outOfStock)
+  let totalAmount = 0
+  orders &&
+    orders.forEach((order) => {
+      totalAmount += order.totalPrice
+    })
 
-  useEffect(() => {
-    dispatch(getProductList())
-  }, [dispatch])
+  const loading = productLoading || orderLoading || userLoading
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -85,51 +96,56 @@ const DashBoard = () => {
     ],
   }
 
-  return (
+  useEffect(() => {
+    dispatch(getProductList())
+    dispatch(getAllOrders())
+    dispatch(getUserList())
+  }, [dispatch])
+
+  return loading ? (
+    <Loading />
+  ) : (
     <Fragment>
-      {user.role !== "admin" ? (
-        <Navigate to="/login" />
-      ) : (
-        <div className="dashboard">
-          <SideBar />
+      <MetaData title="Dashboard -- Admin" />
+      <div className="dashboard">
+        <SideBar />
 
-          <div className="dashboard__container">
-            <Typography component="h1">Dashboard</Typography>
+        <div className="dashboard__container">
+          <Typography component="h1">Dashboard</Typography>
 
-            <div className="dashboard__summary">
-              <div>
-                <p>
-                  Total amount <br /> $2000{" "}
-                </p>
-              </div>
-
-              <div className="dashboard__summary-box2">
-                <Link to="/admin/products">
-                  <p>Product</p>
-                  <p>{products && products.length}</p>
-                </Link>
-
-                <Link to="/admin/orders">
-                  <p>Orders</p>
-                  <p>10</p>
-                </Link>
-                <Link to="/admin/users">
-                  <p>Users</p>
-                  <p>2</p>
-                </Link>
-              </div>
+          <div className="dashboard__summary">
+            <div>
+              <p>
+                Total amount <br /> ${totalAmount}{" "}
+              </p>
             </div>
 
-            <div className="line-chart">
-              <Line options={options} data={lineState} />
-            </div>
+            <div className="dashboard__summary-box2">
+              <Link to="/admin/products">
+                <p>Product</p>
+                <p>{products && products.length}</p>
+              </Link>
 
-            <div className="doughnut-chart">
-              <Doughnut data={doughnutState} />
+              <Link to="/admin/orders">
+                <p>Orders</p>
+                <p>{orders && orders.length}</p>
+              </Link>
+              <Link to="/admin/users">
+                <p>Users</p>
+                <p>{users && users.length}</p>
+              </Link>
             </div>
           </div>
+
+          <div className="line-chart">
+            <Line options={options} data={lineState} />
+          </div>
+
+          <div className="doughnut-chart">
+            <Doughnut data={doughnutState} />
+          </div>
         </div>
-      )}
+      </div>
     </Fragment>
   )
 }

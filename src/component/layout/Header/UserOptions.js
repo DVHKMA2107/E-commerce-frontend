@@ -1,46 +1,49 @@
 import React, { Fragment, useState } from "react"
-import SpeedDial from "@mui/material/SpeedDial"
-import SpeedDialAction from "@mui/material/SpeedDialAction"
-import Profile from "../../../images/Profile.png"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { useAlert } from "react-alert"
-import {
-  Dashboard,
-  Person,
-  ExitToApp,
-  ListAlt,
-  ShoppingCart,
-} from "@mui/icons-material"
-import { Backdrop } from "@mui/material"
+
+import SpeedDial from "@mui/material/SpeedDial"
+import SpeedDialAction from "@mui/material/SpeedDialAction"
+import Backdrop from "@mui/material/Backdrop"
+import DashBoardIcon from "@mui/icons-material/Dashboard"
+import PersonIcon from "@mui/icons-material/Person"
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"
+import ListAltIcon from "@mui/icons-material/ListAlt"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+
 import { logout } from "../../../redux/userSlice"
-import { useDispatch, useSelector } from "react-redux"
+
+import Profile from "../../../images/Profile.png"
 import "./UserOptions.scss"
 
 const UserOptions = ({ user }) => {
-  const { cartItems } = useSelector((state) => state.cart)
   const [open, setOpen] = useState(false)
+
+  const { cartItems } = useSelector((state) => state.cart)
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const alert = useAlert()
-  const dispatch = useDispatch()
 
   const options = [
-    { icon: <ListAlt />, name: "Orders", func: orders },
-    { icon: <Person />, name: "Profile", func: account },
+    { icon: <ListAltIcon />, name: "Orders", func: orders },
+    { icon: <PersonIcon />, name: "Profile", func: account },
     {
       icon: (
-        <ShoppingCart
+        <ShoppingCartIcon
           style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
         />
       ),
       name: `Cart(${cartItems.length})`,
       func: cart,
     },
-    { icon: <ExitToApp />, name: "Logout", func: logoutUser },
+    { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ]
 
   if (user.role === "admin") {
     options.unshift({
-      icon: <Dashboard />,
+      icon: <DashBoardIcon />,
       name: "Dashboard",
       func: dashboard,
     })
@@ -73,7 +76,7 @@ const UserOptions = ({ user }) => {
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
-        stype={{ zIndex: "100" }}
+        style={{ zIndex: "100" }}
         className="speed-dial"
         direction="down"
         icon={

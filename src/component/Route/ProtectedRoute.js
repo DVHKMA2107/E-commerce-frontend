@@ -4,12 +4,13 @@ import { Navigate, Outlet } from "react-router-dom"
 
 const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useSelector((state) => state.user)
+
   return (
     <Fragment>
       {!loading && (
         <Fragment>
           {isAuthenticated === false ? (
-            <Navigate to="/login" />
+            <Navigate to="/login" replace />
           ) : isAuthenticated === true ? (
             <Outlet />
           ) : null}

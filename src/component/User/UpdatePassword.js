@@ -1,27 +1,30 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { LockOpen, Lock, VpnKey } from "@mui/icons-material"
-import Loading from "../layout/Loading/Loading"
-import MetaData from "../layout/MetaData"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { useAlert } from "react-alert"
+import LockOpenIcon from "@mui/icons-material/LockOpen"
+import LockIcon from "@mui/icons-material/Lock"
+import VpnKeyIcon from "@mui/icons-material/VpnKey"
+
 import profileSlice, {
   clearError,
   updatePassword,
 } from "../../redux/profileSlice"
+
+import Loading from "../layout/Loading/Loading"
+import MetaData from "../layout/MetaData"
 import "./UpdatePassword.scss"
 
-import { useSelector, useDispatch } from "react-redux"
-import { useAlert } from "react-alert"
-
 const UpdatePassword = () => {
+  const [oldPassword, setOldPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
   const { error, loading, isUpdated } = useSelector((state) => state.profile)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const alert = useAlert()
-
-  const [oldPassword, setOldPassword] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
 
   const updatePasswordSubmit = (e) => {
     e.preventDefault()
@@ -47,6 +50,7 @@ const UpdatePassword = () => {
       dispatch(profileSlice.actions.updateReset())
     }
   }, [dispatch, error, alert, navigate, isUpdated])
+
   return (
     <Fragment>
       {loading ? (
@@ -62,7 +66,7 @@ const UpdatePassword = () => {
                 onSubmit={updatePasswordSubmit}
               >
                 <div className="old-password">
-                  <VpnKey />
+                  <VpnKeyIcon />
                   <input
                     type="password"
                     placeholder="Old Password"
@@ -72,7 +76,7 @@ const UpdatePassword = () => {
                   />
                 </div>
                 <div className="new-password">
-                  <LockOpen />
+                  <LockOpenIcon />
                   <input
                     type="password"
                     placeholder="New Password"
@@ -83,7 +87,7 @@ const UpdatePassword = () => {
                 </div>
 
                 <div className="confirm-password">
-                  <Lock />
+                  <LockIcon />
                   <input
                     type="password"
                     placeholder="Confirm Password"

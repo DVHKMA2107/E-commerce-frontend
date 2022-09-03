@@ -1,5 +1,6 @@
-import { Rating } from "@mui/material"
 import React from "react"
+import { Rating } from "@mui/material"
+
 import profilePng from "../../images/Profile.png"
 import "./ReviewCard.scss"
 
@@ -7,7 +8,7 @@ const ReviewCard = ({ review }) => {
   const options = {
     size: "large",
     value: review.rating,
-    isHalf: true,
+    readOnly: true,
     precision: 0.5,
   }
 

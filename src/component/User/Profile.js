@@ -1,19 +1,14 @@
 import React, { Fragment } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+
 import MetaData from "../layout/MetaData"
 import Loading from "../layout/Loading/Loading"
 import "./Profile.scss"
 
 const Profile = () => {
-  // const navigate = useNavigate()
-
   const { loading, user } = useSelector((state) => state.user)
-  // useEffect(() => {
-  //   if (isAuthenticated === false) {
-  //     navigate("/login")
-  //   }
-  // }, [navigate, isAuthenticated])
+
   return (
     <Fragment>
       {loading ? (

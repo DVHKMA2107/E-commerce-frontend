@@ -1,25 +1,23 @@
 import React, { Fragment, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import MetaData from "../layout/MetaData"
+import { useAlert } from "react-alert"
+import { Country, State } from "country-state-city"
+
 import PinDropIcon from "@mui/icons-material/PinDrop"
 import HomeIcon from "@mui/icons-material/Home"
 import LocationCityIcon from "@mui/icons-material/LocationCity"
 import PublicIcon from "@mui/icons-material/Public"
 import PhoneIcon from "@mui/icons-material/Phone"
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation"
-import { Country, State } from "country-state-city"
-import { useAlert } from "react-alert"
 
-import "./Shipping.scss"
-import CheckoutSteps from "./CheckoutSteps"
 import { saveShippingInfo } from "../../redux/cartSlice"
 
-const Shipping = () => {
-  const dispatch = useDispatch()
-  const alert = useAlert()
-  const navigate = useNavigate()
+import CheckoutSteps from "./CheckoutSteps"
+import MetaData from "../layout/MetaData"
+import "./Shipping.scss"
 
+const Shipping = () => {
   const { shippingInfo } = useSelector((state) => state.cart)
 
   const [address, setAddress] = useState(shippingInfo.address)
@@ -28,6 +26,10 @@ const Shipping = () => {
   const [country, setCountry] = useState(shippingInfo.country)
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode)
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo)
+
+  const dispatch = useDispatch()
+  const alert = useAlert()
+  const navigate = useNavigate()
 
   const shippingSubmit = (e) => {
     e.preventDefault()
@@ -44,7 +46,7 @@ const Shipping = () => {
   return (
     <Fragment>
       <MetaData title="Shipping Detail" />
-      <CheckoutSteps activeStep={2} />
+      <CheckoutSteps activeStep={0} />
 
       <div className="shipping-container">
         <div className="shipping-box">

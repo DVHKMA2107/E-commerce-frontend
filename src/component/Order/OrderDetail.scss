@@ -2,115 +2,115 @@
 
 .order-detail__page {
   background-color: #fff;
+}
 
-  .order-detail__page-container {
-    padding: 5vmax;
-    padding-bottom: 0%;
+.order-detail__page-container {
+  padding: 5vmax;
+  padding-bottom: 0%;
 
-    & > h1 {
-      color: tomato;
-      font: 300 3vmax "Roboto";
-      margin: 4vmax 0;
-    }
+  & > h1 {
+    color: tomato;
+    font: 300 3vmax "Roboto";
+    margin: 4vmax 0;
+  }
+
+  & > p {
+    font: 400 1.8vmax "Roboto";
+  }
+}
+
+.order-detail__container-box,
+.order-detail__cartItem-container {
+  margin: 2vmax;
+}
+
+.order-detail__container-box {
+  & > div {
+    display: flex;
+    margin: 1vmax 0;
 
     & > p {
-      font: 400 1.8vmax "Roboto";
+      font: 400 1vmax "Roboto";
+      color: #000;
+    }
+
+    & > span {
+      margin: 0 1vmax;
+      color: #575757;
+      font: 100 1vmax "Roboto";
     }
   }
+}
 
-  .order-detail__container-box,
-  .order-detail__cartItem-container {
-    margin: 2vmax;
+.order-detail__cartItem {
+  padding: 2vmax 5vmax;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.164);
+
+  & > p {
+    font: 400 1.8vmax "Roboto";
   }
 
-  .order-detail__container-box {
-    & > div {
-      display: flex;
-      margin: 1vmax 0;
+  .order-detail__cartItem-container > div {
+    display: flex;
+    align-items: center;
+    font: 400 1vmax "Roboto";
+    margin: 2vmax 0;
 
-      & > p {
-        font: 400 1vmax "Roboto";
-        color: #000;
-      }
+    & > img {
+      width: 3vmax;
+    }
 
-      & > span {
-        margin: 0 1vmax;
-        color: #575757;
-        font: 100 1vmax "Roboto";
-      }
+    & > a {
+      text-decoration: none;
+      color: #575757;
+      width: 60%;
+      margin: 0 2vmax;
+    }
+
+    & > span {
+      font: 100 1vmax "Roboto";
+      color: #5e5e5e;
+    }
+  }
+}
+
+@include tablet {
+  .order-detail__page-container {
+    font: 400 6vw "Roboto";
+  }
+
+  .order-detail__container-box > div {
+    margin: 6vw 0;
+
+    & > p {
+      font: 400 4vw "Roboto";
+    }
+
+    & > span {
+      font: 100 4vw "Roboto";
     }
   }
 
   .order-detail__cartItem {
-    padding: 2vmax 5vmax;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.164);
-
     & > p {
-      font: 400 1.8vmax "Roboto";
-    }
-
-    .order-detail__cartItem-container > div {
-      display: flex;
-      align-items: center;
-      font: 400 1vmax "Roboto";
-      margin: 2vmax 0;
-
-      & > img {
-        width: 3vmax;
-      }
-
-      & > a {
-        text-decoration: none;
-        color: #575757;
-        width: 60%;
-        margin: 0 2vmax;
-      }
-
-      & > span {
-        font: 100 1vmax "Roboto";
-        color: #5e5e5e;
-      }
-    }
-  }
-
-  @include tablet {
-    .order-detail__page-container {
       font: 400 6vw "Roboto";
     }
 
-    .order-detail__container-box > div {
-      margin: 6vw 0;
+    .order-detail__cartItem-container > div {
+      font: 400 4vw "Roboto";
+      margin: 4vw 0;
 
-      & > p {
-        font: 400 4vw "Roboto";
+      & > img {
+        width: 20vw;
+      }
+
+      & > a {
+        margin: 2vw;
+        width: 30%;
       }
 
       & > span {
         font: 100 4vw "Roboto";
-      }
-    }
-
-    .order-detail__cartItem {
-      & > p {
-        font: 400 6vw "Roboto";
-      }
-
-      .order-detail__cartItem-container > div {
-        font: 400 4vw "Roboto";
-        margin: 4vw 0;
-
-        & > img {
-          width: 20vw;
-        }
-
-        & > a {
-          margin: 2vw;
-          width: 30%;
-        }
-
-        & > span {
-          font: 100 4vw "Roboto";
-        }
       }
     }
   }

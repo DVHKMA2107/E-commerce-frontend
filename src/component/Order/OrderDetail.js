@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import MetaData from "../layout/MetaData"
-import Loading from "../layout/Loading/Loading"
-import { Typography } from "@mui/material"
 import { Link, useParams } from "react-router-dom"
 import { useAlert } from "react-alert"
+import { Typography } from "@mui/material"
+
 import { getOrderDetail, clearErrors } from "../../redux/orderSlice"
+
+import MetaData from "../layout/MetaData"
+import Loading from "../layout/Loading/Loading"
 import "./OrderDetail.scss"
 
 const OrderDetail = () => {

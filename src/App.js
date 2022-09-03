@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { loadUser } from "./redux/userSlice"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import axios from "axios"
+
 import WebFont from "webfontloader"
+import { loadStripe } from "@stripe/stripe-js"
+import { Elements } from "@stripe/react-stripe-js"
+
+import { loadUser } from "./redux/userSlice"
 
 import Header from "./component/layout/Header/Header"
 import Footer from "./component/layout/Footer/Footer"
@@ -28,17 +33,21 @@ import DashBoard from "./component/Admin/DashBoard"
 import ProductList from "./component/Admin/ProductList"
 import NewProduct from "./component/Admin/NewProduct"
 import UpdateProduct from "./component/Admin/UpdateProduct"
-
-import "./App.scss"
+import OrderList from "./component/Admin/OrderList"
+import ProcessOrder from "./component/Admin/ProcessOrder"
+import UserList from "./component/Admin/UserList"
+import UpdateUser from "./component/Admin/UpdateUser"
+import ProductReviews from "./component/Admin/ProductReview"
+import AdminRoute from "./component/Route/AdminRoute"
 import LoginSignup from "./component/User/LoginSignup"
-import axios from "axios"
-import { loadStripe } from "@stripe/stripe-js"
-import { Elements } from "@stripe/react-stripe-js"
+import "./App.scss"
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
-  const dispatch = useDispatch()
+
   const { isAuthenticated, user } = useSelector((state) => state.user)
+
+  const dispatch = useDispatch()
 
   const getStripeApiKey = async () => {
     const { data } = await axios.get("/api/v1/stripeapikey")
@@ -87,10 +96,17 @@ function App() {
           <Route path="/success" element={<OrderSuccess />} />
           <Route path="/orders" element={<MyOrders />} />
           <Route path="/order/:id" element={<OrderDetail />} />
-          <Route path="/admin/dashboard" element={<DashBoard />} />
-          <Route path="/admin/products" element={<ProductList />} />
-          <Route path="/admin/product" element={<NewProduct />} />
-          <Route path="/admin/product/:id" element={<UpdateProduct />} />
+          <Route element={<AdminRoute />}>
+            <Route path="/admin/dashboard" element={<DashBoard />} />
+            <Route path="/admin/products" element={<ProductList />} />
+            <Route path="/admin/product" element={<NewProduct />} />
+            <Route path="/admin/product/:id" element={<UpdateProduct />} />
+            <Route path="/admin/orders" element={<OrderList />} />
+            <Route path="/admin/order/:id" element={<ProcessOrder />} />
+            <Route path="/admin/users" element={<UserList />} />
+            <Route path="/admin/user/:id" element={<UpdateUser />} />
+            <Route path="/admin/reviews" element={<ProductReviews />} />
+          </Route>
         </Route>
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />

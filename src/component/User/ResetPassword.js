@@ -1,14 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { Lock, VpnKey } from "@mui/icons-material"
-import Loading from "../layout/Loading/Loading"
-import MetaData from "../layout/MetaData"
-import { useNavigate } from "react-router-dom"
-import { clearError, resetPassword } from "../../redux/profileSlice"
-import { useParams } from "react-router-dom"
-import "./ResetPassword.scss"
-
 import { useSelector, useDispatch } from "react-redux"
+import { useNavigate, useParams } from "react-router-dom"
 import { useAlert } from "react-alert"
+import LockIcon from "@mui/icons-material/Lock"
+import VpnKeyIcon from "@mui/icons-material/VpnKey"
+import Loading from "../layout/Loading/Loading"
+
+import { clearError, resetPassword } from "../../redux/profileSlice"
+
+import MetaData from "../layout/MetaData"
+import "./ResetPassword.scss"
 
 const ResetPassword = () => {
   const { error, loading, success } = useSelector((state) => state.profile)
@@ -43,6 +44,7 @@ const ResetPassword = () => {
       navigate("/login")
     }
   }, [dispatch, error, alert, navigate, success])
+
   return (
     <Fragment>
       {loading ? (
@@ -58,7 +60,7 @@ const ResetPassword = () => {
                 onSubmit={resetPasswordSubmit}
               >
                 <div>
-                  <VpnKey />
+                  <VpnKeyIcon />
                   <input
                     type="password"
                     placeholder="New Password"
@@ -68,7 +70,7 @@ const ResetPassword = () => {
                   />
                 </div>
                 <div>
-                  <Lock />
+                  <LockIcon />
                   <input
                     type="password"
                     placeholder="Confirm Password"

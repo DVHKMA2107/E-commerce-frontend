@@ -1,7 +1,9 @@
 import React from "react"
+import { Link } from "react-router-dom"
+
 import { Typography } from "@mui/material"
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"
-import { Link } from "react-router-dom"
+
 import "./OrderSuccess.scss"
 
 const OrderSuccess = () => {

@@ -1,14 +1,16 @@
-import { LockOpenOutlined, MailOutline } from "@mui/icons-material"
-import FaceIcon from "@mui/icons-material/Face"
 import React, { Fragment, useState, useEffect, useRef } from "react"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { useAlert } from "react-alert"
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined"
+import MailOutlinedIcon from "@mui/icons-material/MailOutlineOutlined"
+import FaceIcon from "@mui/icons-material/Face"
+
+import { userLogin, clearError, userRegister } from "../../redux/userSlice"
+
 import Profile from "../../images/Profile.png"
 import Loading from "../layout/Loading/Loading"
-import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import "./LoginSignup.scss"
-
-import { useSelector, useDispatch } from "react-redux"
-import { userLogin, clearError, userRegister } from "../../redux/userSlice"
-import { useAlert } from "react-alert"
 
 const LoginSignup = () => {
   const [loginPassword, setLoginPassword] = useState("")
@@ -22,7 +24,6 @@ const LoginSignup = () => {
   })
 
   const [searchParams] = useSearchParams()
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const alert = useAlert()
@@ -56,17 +57,6 @@ const LoginSignup = () => {
     ? searchParams.get("redirect")
     : "account"
 
-  useEffect(() => {
-    if (error) {
-      alert.error(error.message)
-      dispatch(clearError())
-    }
-
-    if (isAuthenticated) {
-      navigate(`/${redirect}`)
-    }
-  }, [dispatch, error, alert, navigate, isAuthenticated, redirect])
-
   const loginSubmit = (e) => {
     e.preventDefault()
     dispatch(userLogin({ loginEmail, loginPassword }))
@@ -99,6 +89,17 @@ const LoginSignup = () => {
     }
   }
 
+  useEffect(() => {
+    if (error) {
+      alert.error(error.message)
+      dispatch(clearError())
+    }
+
+    if (isAuthenticated) {
+      navigate(`/${redirect}`)
+    }
+  }, [dispatch, error, alert, navigate, isAuthenticated, redirect])
+
   return (
     <Fragment>
       {loading ? (
@@ -121,7 +122,7 @@ const LoginSignup = () => {
                 onSubmit={loginSubmit}
               >
                 <div className="login-email">
-                  <MailOutline />
+                  <MailOutlinedIcon />
                   <input
                     type="email"
                     placeholder="Email"
@@ -131,7 +132,7 @@ const LoginSignup = () => {
                   />
                 </div>
                 <div className="login-password">
-                  <LockOpenOutlined />
+                  <LockOpenOutlinedIcon />
                   <input
                     type="password"
                     placeholder="Password"
@@ -162,7 +163,7 @@ const LoginSignup = () => {
                   />
                 </div>
                 <div className="signup-mail">
-                  <MailOutline />
+                  <MailOutlinedIcon />
                   <input
                     type="email"
                     placeholder="Email"
@@ -173,7 +174,7 @@ const LoginSignup = () => {
                   />
                 </div>
                 <div className="signup-password">
-                  <LockOpenOutlined />
+                  <LockOpenOutlinedIcon />
                   <input
                     type="password"
                     placeholder="Password"

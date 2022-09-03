@@ -1,25 +1,42 @@
 import React, { Fragment } from "react"
-import CartItemCard from "./CartItemCard"
 import { useSelector, useDispatch } from "react-redux"
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
-import { Typography } from "@mui/material"
-import "./Cart.scss"
-import { addItemToCart, removeItemsFromCart } from "../../redux/cartSlice"
 import { Link, useNavigate } from "react-router-dom"
+import { useAlert } from "react-alert"
+
+import { Typography } from "@mui/material"
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
+
+import { addItemToCart, removeItemsFromCart } from "../../redux/cartSlice"
+
+import CartItemCard from "./CartItemCard"
+import "./Cart.scss"
 
 const Cart = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const { cartItems } = useSelector((state) => state.cart)
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const alert = useAlert()
+
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  )
+
   const increaseQuantity = (id, quantity, stock) => {
-    if (stock <= quantity) return
+    if (stock <= quantity) {
+      alert.error("The quantity must be lower than Stock")
+      return
+    }
     const newQuantity = quantity + 1
     dispatch(addItemToCart({ id, quantity: newQuantity }))
   }
 
   const decreaseQuantity = (id, quantity) => {
-    if (quantity <= 1) return
+    if (quantity <= 1) {
+      alert.error("The quantity must be greater than 1")
+      return
+    }
     const newQuantity = quantity - 1
     dispatch(addItemToCart({ id, quantity: newQuantity }))
   }
@@ -32,10 +49,6 @@ const Cart = () => {
     navigate("/login?redirect=shipping")
   }
 
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  )
   return (
     <Fragment>
       {cartItems.length === 0 ? (

@@ -3,6 +3,13 @@
   top: 3vmax;
   right: 3vmax;
 
+  .MuiButtonBase-root {
+    border-radius: 100%;
+    background-color: white;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 3px 0;
+  }
+
   .speed-dial--icon {
     width: 56px;
     height: 56px;

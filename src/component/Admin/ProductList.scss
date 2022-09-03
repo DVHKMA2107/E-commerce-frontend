@@ -23,6 +23,14 @@
     background-color: #fff;
     border: none !important;
 
+    .greenColor > div {
+      color: green;
+    }
+
+    .redColor > div {
+      color: red;
+    }
+
     & div {
       font: 300 1vmax "Roboto";
       color: rgba(0, 0, 0, 0.678);

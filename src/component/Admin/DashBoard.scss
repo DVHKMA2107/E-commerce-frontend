@@ -85,14 +85,16 @@
     .dashboard__container {
       border-left: none;
 
-      .dashboard__summary > div > p {
-        margin: 0;
-      }
+      .dashboard__summary {
+        & > div > p {
+          margin: 0;
+        }
 
-      .dashboard__summary-box2 > a {
-        padding: 0.5rem;
-        margin: 1rem;
-        font: 300 0.9rem "Roboto";
+        .dashboard__summary-box2 > a {
+          padding: 0.5rem;
+          margin: 1rem;
+          font: 300 0.9rem "Roboto";
+        }
       }
     }
   }

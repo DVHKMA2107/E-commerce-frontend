@@ -1,22 +1,32 @@
 import React, { Fragment, useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { useAlert } from "react-alert"
 import productSlice, {
   clearError,
   createNewProduct,
 } from "../../redux/productSlice"
-import { useAlert } from "react-alert"
-import { Button } from "@mui/material"
-import MetaData from "../layout/MetaData"
+
 import AccountTreeIcon from "@mui/icons-material/AccountTree"
 import DescriptionIcon from "@mui/icons-material/Description"
 import SpellCheckIcon from "@mui/icons-material/Spellcheck"
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney"
 import StorageIcon from "@mui/icons-material/Storage"
+
+import MetaData from "../layout/MetaData"
 import SideBar from "./SideBar"
-import { useNavigate } from "react-router-dom"
+import { Button } from "@mui/material"
 import "./NewProduct.scss"
 
 const NewProduct = () => {
+  const [name, setName] = useState("")
+  const [price, setPrice] = useState(0)
+  const [description, setDescription] = useState("")
+  const [category, setCategory] = useState("")
+  const [Stock, setStock] = useState(0)
+  const [images, setImages] = useState([])
+  const [imagesPreview, setImagesPreview] = useState([])
+
   const dispatch = useDispatch()
   const alert = useAlert()
   const navigate = useNavigate()
@@ -32,27 +42,6 @@ const NewProduct = () => {
   ]
 
   const { success, loading, error } = useSelector((state) => state.product)
-
-  const [name, setName] = useState("")
-  const [price, setPrice] = useState(0)
-  const [description, setDescription] = useState("")
-  const [category, setCategory] = useState("")
-  const [Stock, setStock] = useState(0)
-  const [images, setImages] = useState([])
-  const [imagesPreview, setImagesPreview] = useState([])
-
-  useEffect(() => {
-    if (error) {
-      alert.error(error.message)
-      dispatch(clearError())
-    }
-
-    if (success) {
-      alert.success("Product Created Successfully!")
-      navigate("/admin/dashboard")
-      dispatch(productSlice.actions.newProductReset)
-    }
-  }, [dispatch, alert, error, success, navigate])
 
   const newProductFormSubmitHandler = (e) => {
     e.preventDefault()
@@ -91,6 +80,19 @@ const NewProduct = () => {
     })
   }
 
+  useEffect(() => {
+    if (error) {
+      alert.error(error.message)
+      dispatch(clearError())
+    }
+
+    if (success) {
+      alert.success("Product Created Successfully!")
+      navigate("/admin/products")
+      dispatch(productSlice.actions.newProductReset())
+    }
+  }, [dispatch, alert, error, success, navigate])
+
   return (
     <Fragment>
       <MetaData title="CREATE PRODUCT -- ADMIN" />
@@ -113,6 +115,7 @@ const NewProduct = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
 
@@ -124,6 +127,7 @@ const NewProduct = () => {
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
 
@@ -135,6 +139,7 @@ const NewProduct = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
                 rows="1"
+                onFocus={(e) => e.target.select()}
               />
             </div>
 
@@ -157,6 +162,7 @@ const NewProduct = () => {
                 placeholder="Stock"
                 required
                 onChange={(e) => setStock(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
 

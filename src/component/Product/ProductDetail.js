@@ -1,18 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react"
-import Carousel from "react-material-ui-carousel"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getProductDetail, clearError } from "../../redux/productSlice"
-import reviewSlice, {
-  createNewReview,
-  clearErrors,
-} from "../../redux/reviewSlice"
 import { useAlert } from "react-alert"
-import Loading from "../layout/Loading/Loading"
-import { addItemToCart } from "../../redux/cartSlice"
-import ReviewCard from "./ReviewCard"
-import "./ProductDetail.scss"
-import MetaData from "../layout/MetaData"
+import Carousel from "react-material-ui-carousel"
 import {
   Dialog,
   DialogActions,
@@ -22,36 +12,53 @@ import {
   Rating,
 } from "@mui/material"
 
+import { getProductDetail, clearError } from "../../redux/productSlice"
+import { addItemToCart } from "../../redux/cartSlice"
+import reviewSlice, {
+  createNewReview,
+  clearErrors,
+} from "../../redux/reviewSlice"
+
+import Loading from "../layout/Loading/Loading"
+import MetaData from "../layout/MetaData"
+import ReviewCard from "./ReviewCard"
+import "./ProductDetail.scss"
+
 const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1)
   const [openDialog, setOpenDialog] = useState(false)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState("")
 
-  const dispatch = useDispatch()
-  const alert = useAlert()
-
   const { productDetail, loading, error } = useSelector(
     (state) => state.product
   )
-  console.log(productDetail.rating)
   const { success, error: reviewError } = useSelector((state) => state.review)
+
+  const dispatch = useDispatch()
+  const alert = useAlert()
   const { id } = useParams()
 
   const options = {
     size: "large",
     value: productDetail.rating,
-    isHalf: true,
+    readOnly: true,
     precision: 0.5,
   }
 
   const decreaseQuantity = () => {
-    if (quantity <= 1) return
+    if (quantity <= 1) {
+      alert.error("The quantity must be greater than 1")
+      return
+    }
     setQuantity((prev) => prev - 1)
   }
 
   const increaseQuantity = () => {
-    if (productDetail.Stock <= quantity) return
+    if (productDetail.Stock <= quantity) {
+      alert.error("The quantity is over Stock")
+      return
+    }
     setQuantity((prev) => prev + 1)
   }
 
@@ -72,7 +79,6 @@ const ProductDetail = () => {
     myForm.set("productId", id)
 
     dispatch(createNewReview(myForm))
-
     setOpenDialog(false)
   }
 

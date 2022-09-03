@@ -1,3 +1,5 @@
+@import "../../responsive.scss";
+
 .search-box {
   width: 100vw;
   height: 100vh;
@@ -38,6 +40,20 @@
 
     &:hover {
       background-color: rgb(55, 97, 214);
+    }
+  }
+
+  @include tablet {
+    & > input[type="text"] {
+      width: 100%;
+      font: 300 4vw cursive;
+      height: 10%;
+    }
+
+    & > input[type="submit"] {
+      height: 10%;
+      width: 30%;
+      font: 300 4vw "Roboto";
     }
   }
 }

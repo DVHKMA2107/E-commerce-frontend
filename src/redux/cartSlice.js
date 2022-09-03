@@ -28,6 +28,9 @@ const cartSlice = createSlice({
     saveShippingInfo: (state, action) => {
       state.shippingInfo = action.payload
     },
+    cartItemsReset: (state, action) => {
+      state.cartItems = []
+    },
   },
 })
 

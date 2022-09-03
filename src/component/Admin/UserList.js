@@ -4,23 +4,22 @@ import { Link, useNavigate } from "react-router-dom"
 import { useAlert } from "react-alert"
 import { DataGrid } from "@mui/x-data-grid/DataGrid"
 import { Button } from "@mui/material"
-import DeleteIcon from "@mui/icons-material/Delete"
+
 import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
 
-import productSlice, {
-  getProductList,
-  deleteProduct,
+import adminSlice, {
   clearError,
-} from "../../redux/productSlice"
+  deleteUser,
+  getUserList,
+} from "../../redux/adminSlice"
 
-import "./ProductList.scss"
-import Loading from "../layout/Loading/Loading"
 import MetaData from "../layout/MetaData"
 import SideBar from "./SideBar"
 
-const ProductList = () => {
-  const { products, error, isDeleted, loading } = useSelector(
-    (state) => state.product
+const UserList = () => {
+  const { users, error, isDeleted, message } = useSelector(
+    (state) => state.admin
   )
 
   const dispatch = useDispatch()
@@ -34,44 +33,48 @@ const ProductList = () => {
     }
 
     if (isDeleted) {
-      alert.success("Product Deleted Successfully")
-      navigate("/admin/dashboard")
-      dispatch(productSlice.actions.deleteProductReset())
+      alert.success(message)
+      navigate("/admin/users")
+      dispatch(adminSlice.actions.deleteUserReset())
     }
 
-    dispatch(getProductList())
-  }, [dispatch, alert, error, isDeleted, navigate])
+    dispatch(getUserList())
+  }, [dispatch, alert, error, isDeleted, navigate, message])
 
-  const deleteProductHandler = (id) => {
-    dispatch(deleteProduct(id))
+  const deleteUserHandler = (id) => {
+    dispatch(deleteUser(id))
   }
 
   const columns = [
     {
       field: "id",
-      headerName: "Product ID",
+      headerName: "User ID",
       minWidth: 200,
-      flex: 0.5,
+      flex: 0.8,
     },
     {
-      field: "name",
-      headerName: "Name",
+      field: "email",
+      headerName: "Email",
       minWidth: 350,
       flex: 1,
     },
     {
-      field: "stock",
-      headerName: "Stock",
-      type: "number",
+      field: "name",
+      headerName: "Name",
       minWidth: 150,
-      flex: 0.3,
+      flex: 0.5,
     },
     {
-      field: "price",
-      headerName: "Price",
+      field: "role",
+      headerName: "Role",
       type: "number",
       minWidth: 270,
-      flex: 0.5,
+      flex: 0.3,
+      cellClassName: (params) => {
+        return params.getValue(params.id, "role") === "admin"
+          ? "greenColor"
+          : "redColor"
+      },
     },
     {
       field: "actions",
@@ -83,11 +86,11 @@ const ProductList = () => {
       renderCell: (params) => {
         return (
           <Fragment>
-            <Link to={`/admin/product/${params.row.id}`}>
+            <Link to={`/admin/user/${params.row.id}`}>
               <EditIcon />
             </Link>
 
-            <Button onClick={() => deleteProductHandler(params.row.id)}>
+            <Button onClick={() => deleteUserHandler(params.row.id)}>
               <DeleteIcon />
             </Button>
           </Fragment>
@@ -98,26 +101,25 @@ const ProductList = () => {
 
   const rows = []
 
-  products &&
-    products.forEach((item) => {
+  users &&
+    users.forEach((item) => {
       rows.push({
         id: item._id,
-        stock: item.Stock,
-        price: item.price,
+        role: item.role,
+        email: item.email,
         name: item.name,
       })
     })
-  return loading ? (
-    <Loading />
-  ) : (
+
+  return (
     <Fragment>
-      <MetaData title="ALL PRODUCTS -- ADMIN" />
+      <MetaData title="ALL USERS -- ADMIN" />
 
       <div className="dashboard">
         <SideBar />
 
         <div className="product-list__container">
-          <h1 id="product-list__heading">ALL PRODUCTS</h1>
+          <h1 id="product-list__heading">ALL USERS</h1>
 
           <DataGrid
             rows={rows}
@@ -133,4 +135,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default UserList

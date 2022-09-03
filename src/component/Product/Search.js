@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from "react"
 import { useNavigate } from "react-router-dom"
-import MetaData from "../layout/MetaData"
 
+import MetaData from "../layout/MetaData"
 import "./Search.scss"
 
 const Search = () => {
   const [keyword, setKeyWord] = useState()
+
   const navigate = useNavigate()
 
   const searchSubmitHandler = (e) => {

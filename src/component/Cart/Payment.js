@@ -1,9 +1,12 @@
 import React, { Fragment, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useAlert } from "react-alert"
-import { Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import { useAlert } from "react-alert"
 import axios from "axios"
+import { Typography } from "@mui/material"
+import CreditCardIcon from "@mui/icons-material/CreditCard"
+import EventIcon from "@mui/icons-material/Event"
+import VpnKeyIcon from "@mui/icons-material/VpnKey"
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -13,17 +16,13 @@ import {
 } from "@stripe/react-stripe-js"
 
 import { createOrder, clearErrors } from "../../redux/orderSlice"
+import cartSlice from "../../redux/cartSlice"
 
 import CheckoutSteps from "./CheckoutSteps"
 import MetaData from "../layout/MetaData"
-import CreditCardIcon from "@mui/icons-material/CreditCard"
-import EventIcon from "@mui/icons-material/Event"
-import VpnKeyIcon from "@mui/icons-material/VpnKey"
 import "./Payment.scss"
 
 const Payment = () => {
-  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"))
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const alert = useAlert()
@@ -33,6 +32,8 @@ const Payment = () => {
   const { user } = useSelector((state) => state.user)
   const { shippingInfo, cartItems } = useSelector((state) => state.cart)
   const { error } = useSelector((state) => state.order)
+
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"))
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -94,6 +95,8 @@ const Payment = () => {
             status: result.paymentIntent.status,
           }
           dispatch(createOrder(newOrder))
+          localStorage.setItem("cartItems", [])
+          dispatch(cartSlice.actions.cartItemsReset())
           navigate("/success")
         } else {
           alert.error("There's is some issue while processing payment")
@@ -143,5 +146,4 @@ const Payment = () => {
     </Fragment>
   )
 }
-
 export default Payment

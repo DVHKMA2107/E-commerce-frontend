@@ -1,15 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useAlert } from "react-alert"
 import { useParams } from "react-router-dom"
-import { fetchAllProduct, clearError } from "../../redux/productSlice"
-import ProductCard from "../Home/ProductCard"
-import Loading from "../layout/Loading/Loading"
+import { useAlert } from "react-alert"
 import Pagination from "react-js-pagination"
 import Slider from "@mui/material/Slider"
 import Typography from "@mui/material/Typography"
-import "./Products.scss"
+
+import { fetchAllProduct, clearError } from "../../redux/productSlice"
+
+import Loading from "../layout/Loading/Loading"
 import MetaData from "../layout/MetaData"
+import ProductCard from "../Home/ProductCard"
+import "./Products.scss"
 
 const categories = [
   "Laptop",
@@ -27,9 +29,9 @@ const Products = () => {
   const [category, setCategory] = useState("")
   const [rating, setRating] = useState(0)
 
+  const { keyword } = useParams()
   const dispatch = useDispatch()
   const alert = useAlert()
-  const { keyword } = useParams()
 
   const {
     products,
@@ -65,10 +67,13 @@ const Products = () => {
           <MetaData title="PRODUCTS -- ECOMMERCE" />
           <h2 className="products-heading">Products</h2>
           <div className="products">
-            {products &&
+            {products && products.length > 0 ? (
               products.map((product) => (
                 <ProductCard key={product._id} product={product} />
-              ))}
+              ))
+            ) : (
+              <h1>No Product Found</h1>
+            )}
           </div>
 
           <div className="filter-box">

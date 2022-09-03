@@ -2,18 +2,19 @@ import React, { Fragment, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useAlert } from "react-alert"
 import { CgMouse } from "react-icons/cg"
+
 import { clearError, fetchAllProduct } from "../../redux/productSlice"
-import ProductCard from "./ProductCard"
-import MetaData from "../layout/MetaData"
+
 import Loading from "../layout/Loading/Loading"
+import MetaData from "../layout/MetaData"
+import ProductCard from "./ProductCard"
 import "./Home.scss"
 
 const Home = () => {
+  const { loading, products, error } = useSelector((state) => state.product)
+
   const dispatch = useDispatch()
   const alert = useAlert()
-  const { loading, products, productCount, error } = useSelector(
-    (state) => state.product
-  )
 
   useEffect(() => {
     if (error) {
@@ -22,6 +23,7 @@ const Home = () => {
     }
     dispatch(fetchAllProduct({}))
   }, [dispatch, error, alert])
+
   return loading ? (
     <Loading />
   ) : (

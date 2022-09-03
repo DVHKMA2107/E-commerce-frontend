@@ -1,0 +1,126 @@
+@import "../../responsive.scss";
+
+.product-review__container {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  border-left: 1px solid rgba(0, 0, 0, 0.158);
+  height: 100vh;
+
+  .product-review__form {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 3vmax;
+    background-color: white;
+
+    & > div {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      margin: 2rem;
+
+      & > input {
+        padding: 1vmax 4vmax;
+        padding-right: 1vmax;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.267);
+        border-radius: 4px;
+        font: 300 0.9vmax cursive;
+        outline: none;
+      }
+
+      & > svg {
+        position: absolute;
+        transform: translateX(1vmax);
+        font-size: 1.6vmax;
+        color: rgba(0, 0, 0, 0.623);
+      }
+    }
+
+    #product-review__button {
+      border: none;
+      background-color: tomato;
+      color: white;
+      font: 300 0.9vmax "Roboto";
+      width: 100%;
+      padding: 0.8vmax;
+      cursor: pointer;
+      transition: all 0.5s;
+      border-radius: 4px;
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+
+      &:hover {
+        background-color: rgb(179, 66, 46);
+      }
+    }
+  }
+
+  .product-review__form-heading {
+    color: rgba(0, 0, 0, 0.733);
+    font: 300 2rem "Roboto";
+    text-align: center;
+  }
+
+  .product-review__table {
+    background-color: #fff;
+    border: none !important;
+
+    .greenColor > div {
+      color: green;
+    }
+
+    .redColor > div {
+      color: red;
+    }
+
+    & div {
+      font: 300 1vmax "Roboto";
+      color: rgba(0, 0, 0, 0.678);
+      border: none !important;
+    }
+
+    & a,
+    & button {
+      color: rgba(0, 0, 0, 0.527);
+      transition: all 0.5s;
+
+      &:hover {
+        color: tomato;
+      }
+    }
+
+    .MuiDataGrid-columnHeader div {
+      color: #fff;
+    }
+  }
+
+  @include tablet {
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.158);
+
+    .product-review__form {
+      & > div > input {
+        padding: 2.5vmax 5vmax;
+        font: 300 1.7vmax cursive;
+      }
+
+      & > div > svg {
+        font-size: 2.8vmax;
+      }
+
+      #product-review__button {
+        font: 300 1.9vmax "Roboto";
+        padding: 1.8vmax;
+      }
+    }
+
+    .product-review__table div {
+      font: 300 4vw "Roboto";
+    }
+  }
+}

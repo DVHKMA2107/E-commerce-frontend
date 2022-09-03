@@ -1,7 +1,7 @@
 import React from "react"
+
 import AppStore from "../../../images/Appstore.png"
 import PlayStore from "../../../images/playstore.png"
-
 import "./Footer.scss"
 
 const Footer = () => {

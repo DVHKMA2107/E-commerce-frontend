@@ -1,21 +1,23 @@
 import React, { Fragment, useEffect } from "react"
-import { DataGrid } from "@mui/x-data-grid"
 import { useSelector, useDispatch } from "react-redux"
-import { getMyOrders, clearErrors } from "../../redux/orderSlice"
-import Loading from "../layout/Loading/Loading"
 import { Link } from "react-router-dom"
-import { Typography } from "@mui/material"
-import MetaData from "../layout/MetaData"
-import LaunchIcon from "@mui/icons-material/Launch"
 import { useAlert } from "react-alert"
+import { DataGrid } from "@mui/x-data-grid"
+import { Typography } from "@mui/material"
+import LaunchIcon from "@mui/icons-material/Launch"
+
+import { getMyOrders, clearErrors } from "../../redux/orderSlice"
+
+import Loading from "../layout/Loading/Loading"
+import MetaData from "../layout/MetaData"
 import "./MyOrders.scss"
 
 const MyOrders = () => {
-  const dispatch = useDispatch()
-  const alert = useAlert()
-
   const { user } = useSelector((state) => state.user)
   const { loading, error, orders } = useSelector((state) => state.order)
+
+  const dispatch = useDispatch()
+  const alert = useAlert()
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
@@ -80,6 +82,7 @@ const MyOrders = () => {
 
     dispatch(getMyOrders())
   }, [alert, dispatch, error])
+
   return (
     <Fragment>
       <MetaData title={`${user.name}'s Orders`} />

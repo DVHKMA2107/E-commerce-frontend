@@ -1,11 +1,12 @@
 import React, { Fragment } from "react"
-import CheckoutSteps from "./CheckoutSteps"
-import "./ConfirmOrder.scss"
-import "./CheckoutSteps.scss"
-import MetaData from "../layout/MetaData"
 import { useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { Typography } from "@mui/material"
+
+import MetaData from "../layout/MetaData"
+import CheckoutSteps from "./CheckoutSteps"
+import "./ConfirmOrder.scss"
+import "./CheckoutSteps.scss"
 
 const ConfirmOrder = () => {
   const navigate = useNavigate()
@@ -18,11 +19,11 @@ const ConfirmOrder = () => {
     0
   )
 
-  const tax = subTotal * 0.18
+  const tax = (subTotal * 0.18).toFixed(0)
 
   const shippingCharges = subTotal > 1000 ? 0 : 200
 
-  const totalPrice = shippingCharges + subTotal + tax
+  const totalPrice = shippingCharges + subTotal + +tax
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`
 
@@ -33,6 +34,7 @@ const ConfirmOrder = () => {
 
     navigate("/process/payment")
   }
+
   return (
     <Fragment>
       <MetaData title="Confirm Order"></MetaData>

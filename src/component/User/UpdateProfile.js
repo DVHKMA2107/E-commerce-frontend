@@ -1,18 +1,20 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { MailOutline, Face } from "@mui/icons-material"
-import Profile from "../../images/Profile.png"
-import Loading from "../layout/Loading/Loading"
-import MetaData from "../layout/MetaData"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { useAlert } from "react-alert"
+import MailOutlinedIcon from "@mui/icons-material/MailOutlined"
+import FaceIcon from "@mui/icons-material/Face"
+import Profile from "../../images/Profile.png"
+
+import { loadUser } from "../../redux/userSlice"
 import profileSlice, {
   clearError,
   updateProfile,
 } from "../../redux/profileSlice"
-import "./UpdateProfile.scss"
 
-import { useSelector, useDispatch } from "react-redux"
-import { useAlert } from "react-alert"
-import { loadUser } from "../../redux/userSlice"
+import Loading from "../layout/Loading/Loading"
+import MetaData from "../layout/MetaData"
+import "./UpdateProfile.scss"
 
 const UpdateProfile = () => {
   const { user } = useSelector((state) => state.user)
@@ -85,24 +87,26 @@ const UpdateProfile = () => {
                 onSubmit={updateProfileSubmit}
               >
                 <div className="update-profile__name">
-                  <Face />
+                  <FaceIcon />
                   <input
                     type="text"
                     value={name}
                     placeholder="Name"
                     required
                     name="name"
+                    onFocus={(e) => e.target.select()}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="update-profile__mail">
-                  <MailOutline />
+                  <MailOutlinedIcon />
                   <input
                     type="email"
                     placeholder="Email"
                     required
                     value={email}
                     name="email"
+                    onFocus={(e) => e.target.select()}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>

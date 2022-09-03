@@ -1,12 +1,13 @@
 import React, { Fragment, useState, useEffect } from "react"
-import { MailOutline } from "@mui/icons-material"
-import Loading from "../layout/Loading/Loading"
-import MetaData from "../layout/MetaData"
-import { clearError, forgotPassword } from "../../redux/profileSlice"
-import "./ForgotPassword.scss"
-
 import { useSelector, useDispatch } from "react-redux"
 import { useAlert } from "react-alert"
+
+import { clearError, forgotPassword } from "../../redux/profileSlice"
+import { MailOutline } from "@mui/icons-material"
+
+import Loading from "../layout/Loading/Loading"
+import MetaData from "../layout/MetaData"
+import "./ForgotPassword.scss"
 
 const ForgotPassword = () => {
   const { error, loading, message } = useSelector((state) => state.profile)
@@ -34,6 +35,7 @@ const ForgotPassword = () => {
       alert.success(message)
     }
   }, [dispatch, error, alert, message])
+
   return (
     <Fragment>
       {loading ? (

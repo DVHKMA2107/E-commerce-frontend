@@ -1,0 +1,47 @@
+@import "../../responsive.scss";
+
+.update-order__form {
+  margin: 5vmax 0;
+  padding: 3vmax;
+  background-color: white;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    & > select {
+      padding: 1vmax 4vmax;
+      padding-right: 1vmax;
+      width: 100%;
+      margin: 2rem 0;
+      box-sizing: border-box;
+      border: 1px solid rgba(0, 0, 0, 0.267);
+      border-radius: 4px;
+      outline: none;
+      font: 300 0.9vmax cursive;
+    }
+
+    & > svg {
+      position: absolute;
+      transform: translateX(1vmax);
+      font-size: 1.6vmax;
+      color: rgba(0, 0, 0, 0.623);
+    }
+  }
+}
+
+@include tablet {
+  .update-order__form {
+    padding: 5vmax;
+
+    & > div > select {
+      padding: 2.5vmax 5vmax;
+      font: 300 1.7vmax cursive;
+    }
+
+    & > div > svg {
+      font-size: 2.8vmax;
+    }
+  }
+}
