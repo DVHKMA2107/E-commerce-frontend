@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Navigate } from "react-router-dom"
 import { useAlert } from "react-alert"
 import axios from "axios"
 import { Typography } from "@mui/material"
@@ -35,17 +35,24 @@ const Payment = () => {
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"))
 
-  const paymentData = {
-    amount: Math.round(orderInfo.totalPrice * 100),
-  }
+  let paymentData = {}
+  let newOrder = {}
 
-  const newOrder = {
-    shippingInfo,
-    orderItems: cartItems,
-    itemsPrice: orderInfo.subTotal,
-    totalPrice: orderInfo.totalPrice,
-    taxPrice: orderInfo.tax,
-    shippingPrice: orderInfo.shippingCharges,
+  if (orderInfo !== null) {
+    paymentData = {
+      amount: Math.round(orderInfo.totalPrice * 100),
+    }
+
+    newOrder = {
+      shippingInfo,
+      orderItems: cartItems,
+      itemsPrice: orderInfo.subTotal,
+      totalPrice: orderInfo.totalPrice,
+      taxPrice: orderInfo.tax,
+      shippingPrice: orderInfo.shippingCharges,
+    }
+  } else {
+    navigate("/cart")
   }
 
   const payBtn = useRef(null)

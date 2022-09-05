@@ -1,0 +1,36 @@
+@mixin animate($animation) {
+  animation: $animation 2s forwards;
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+.contact-container {
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  display: grid;
+  place-items: center;
+  background-color: white;
+  position: fixed;
+
+  .mailBtn {
+    text-decoration: none;
+    transform: translateX(-100vw);
+    @include keyframes(buttonAnimate) {
+      100% {
+        transform: translateX(0);
+      }
+    }
+    @include animate(buttonAnimate);
+
+    & > button {
+      text-decoration: none;
+      font: 200 2vmax "Roboto";
+      padding: 2vmax;
+    }
+  }
+}

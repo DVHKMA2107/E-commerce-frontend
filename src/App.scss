@@ -15,6 +15,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+body {
+  cursor: url("./images/cursor.png"), auto;
+}
+
 .greenColor {
   color: green !important;
 }

@@ -40,6 +40,9 @@ import UpdateUser from "./component/Admin/UpdateUser"
 import ProductReviews from "./component/Admin/ProductReview"
 import AdminRoute from "./component/Route/AdminRoute"
 import LoginSignup from "./component/User/LoginSignup"
+import Contact from "./component/layout/Contact/Contact"
+import About from "./component/layout/About/About"
+import NotFound from "./component/layout/NotFound/NotFound"
 import "./App.scss"
 
 function App() {
@@ -66,6 +69,8 @@ function App() {
     getStripeApiKey()
   }, [dispatch])
 
+  window.addEventListener("contextmenu", (e) => e.preventDefault())
+
   return (
     <Router>
       <Header />
@@ -77,6 +82,8 @@ function App() {
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/search" element={<Search />} />
         <Route path="/login" element={<LoginSignup />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/account" element={<Profile />} />
           <Route path="/me/update" element={<UpdateProfile />} />
@@ -111,6 +118,7 @@ function App() {
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>
