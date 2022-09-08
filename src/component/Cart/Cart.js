@@ -25,7 +25,7 @@ const Cart = () => {
 
   const increaseQuantity = (id, quantity, stock) => {
     if (stock <= quantity) {
-      alert.error("The quantity must be lower than Stock")
+      alert.error("The quantity over Stock")
       return
     }
     const newQuantity = quantity + 1
@@ -33,10 +33,7 @@ const Cart = () => {
   }
 
   const decreaseQuantity = (id, quantity) => {
-    if (quantity <= 1) {
-      alert.error("The quantity must be greater than 1")
-      return
-    }
+    if (quantity <= 1) return
     const newQuantity = quantity - 1
     dispatch(addItemToCart({ id, quantity: newQuantity }))
   }

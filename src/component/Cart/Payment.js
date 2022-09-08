@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate, Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useAlert } from "react-alert"
 import axios from "axios"
 import { Typography } from "@mui/material"
@@ -16,7 +16,6 @@ import {
 } from "@stripe/react-stripe-js"
 
 import { createOrder, clearErrors } from "../../redux/orderSlice"
-import cartSlice from "../../redux/cartSlice"
 
 import CheckoutSteps from "./CheckoutSteps"
 import MetaData from "../layout/MetaData"
@@ -102,8 +101,6 @@ const Payment = () => {
             status: result.paymentIntent.status,
           }
           dispatch(createOrder(newOrder))
-          localStorage.setItem("cartItems", [])
-          dispatch(cartSlice.actions.cartItemsReset())
           navigate("/success")
         } else {
           alert.error("There's is some issue while processing payment")

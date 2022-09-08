@@ -65,7 +65,9 @@ const Products = () => {
       ) : (
         <Fragment>
           <MetaData title="PRODUCTS -- ECOMMERCE" />
-          <h2 className="products-heading">Products</h2>
+          <h2 className="products-heading">
+            {category ? category.toUpperCase() : "All Products"}
+          </h2>
           <div className="products">
             {products && products.length > 0 ? (
               products.map((product) => (
@@ -88,15 +90,22 @@ const Products = () => {
             />
             <Typography>Categories</Typography>
             <ul className="category-box">
-              {categories.map((category) => (
+              {categories.map((item) => (
                 <li
-                  className="category-link"
-                  key={category}
-                  onClick={() => setCategory(category)}
+                  className={`category-link ${
+                    item === category ? "activeCategory" : ""
+                  }`}
+                  key={item}
+                  onClick={(e) => {
+                    setCategory(item)
+                  }}
                 >
-                  {category}
+                  {item}
                 </li>
               ))}
+              <li className="category-link" onClick={() => setCategory("")}>
+                All
+              </li>
             </ul>
 
             <fieldset>
